@@ -1,0 +1,11 @@
+/* Copyright (c) 2018 8th Wall, Inc. All Rights Reserved */
+!function(){const s=document.currentScript||[].find.call(document.scripts,r=>/xrweb(\?.*)?$/.test(r.src)),getAppKeyFromTag=()=>{const r=s.getAttribute("appKey");if(r)return r;const e=s.src.match(/app[kK]ey=([a-zA-Z0-9]+)/);if(!e){const r="Missing 8th Wall appKey";throw console.error(r,s),alert(r),new Error(r)}return e[1]},checkSimdSupported=()=>{try{
+    // This was taken from the minified version of wasm-feature-detect's simd() function:
+    // https://unpkg.com/wasm-feature-detect@1.2.11/dist/umd/index.js
+    return WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,0,0,1,5,1,96,0,1,123,3,2,1,0,10,10,1,8,0,65,0,253,15,253,98,11]))}catch(r){return!1}},useAsync="false"!==s.getAttribute("async"),xrwebUrl="https://cdn.8thwall.com/xr-20.3.3.684.js";let src=xrwebUrl||`${s.src}?appKey=${getAppKeyFromTag()}`;const xrwebSimdUrl="https://cdn.8thwall.com/xr-simd-20.3.3.684.js";xrwebSimdUrl&&checkSimdSupported()&&(src=xrwebSimdUrl);
+    // We only need credentials if we are requesting again with an added app key, to preserve tokens
+    const withCredentials=!xrwebUrl;
+    // Set useful metadata on the window so that jsxr can find it without additional loads.
+    if(window._XR8={channel:"js_release",version:"20.3.3.684",devMode:!1,sampleRatio:4,shortLink:"8th.io/cwru4",coverImageUrl:"https://cdn.8thwall.com/apps/cover/4s3o1qzmqf9hz0zjx4r84z092lfr8m8rq995fjrsx6itgvuwpgz19pgx-preview-1200x630",smallCoverImageUrl:"https://cdn.8thwall.com/apps/cover/4s3o1qzmqf9hz0zjx4r84z092lfr8m8rq995fjrsx6itgvuwpgz19pgx-preview-400x210",mediumCoverImageUrl:"https://cdn.8thwall.com/apps/cover/4s3o1qzmqf9hz0zjx4r84z092lfr8m8rq995fjrsx6itgvuwpgz19pgx-preview-600x315",largeCoverImageUrl:"https://cdn.8thwall.com/apps/cover/4s3o1qzmqf9hz0zjx4r84z092lfr8m8rq995fjrsx6itgvuwpgz19pgx-preview-1200x630"},useAsync){const r=document.createElement("SCRIPT");withCredentials||r.setAttribute("crossorigin","anonymous"),r.src=src,r.setAttribute("async","true"),document.head.appendChild(r)}else{const xhr=new XMLHttpRequest;xhr.onload=function(){eval(xhr.responseText)},xhr.open("GET",src,!1),// Synchronous XMLHttpRequest on the main thread
+    xhr.withCredentials=withCredentials,xhr.send(null)}}();
+    // # sourceURL=xrweb.js
